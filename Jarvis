@@ -1,3 +1,4 @@
+#importing modules
 import os
 import pyttsx3
 import datetime
@@ -5,18 +6,18 @@ import speech_recognition as sr
 import wikipedia
 import webbrowser
 
-chrome_path = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path))
+chrome_path = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"  #setting path of chrome
+webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path))     
 
-engine = pyttsx3.init('sapi5')
-voices = engine.getProperty('voices')
-engine.setProperty('voices', voices[0].id)
+engine = pyttsx3.init('sapi5')  #sapi5 Microsoft Speech API
+voices = engine.getProperty('voices') #getting default voices of the system
+engine.setProperty('voices', voices[0].id)  # setting property of voice
 
-def speak(audio):
+def speak(audio): #function to take speech input
     engine.say(audio)
     engine.runAndWait()
 
-def wishMe():
+def wishMe(): #starting base function for greeting 
     hour = int(datetime.datetime.now().hour)
     if(hour >=0 and hour< 12):
         speak("Good Morning")
@@ -26,11 +27,11 @@ def wishMe():
         speak("Good Evening")
     speak("I am Jarvis Sir, How may I help You")
 
-def takeCommand():
+def takeCommand():  #taking voice command
 
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source)
+        r.adjust_for_ambient_noise(source)  #adjusting voice 
         print("Listening.....")
         audio = r.listen(source)
 
@@ -46,12 +47,12 @@ def takeCommand():
     return query
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":    #main function
     wishMe()
     while True:
-        query = takeCommand().lower()
+        query = takeCommand().lower()  #converting to lower case
 
-        if 'how are you' in query:
+        if 'how are you' in query:   # checking condition
             speak('I am good, sir. How are you')
         elif 'who are you' in query:
             speak('I am a Robot, sir. Made by Lakhan Shanker')
